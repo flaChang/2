@@ -1,0 +1,316 @@
+<style>
+    :root{                                                  /*事先声明元素，便于之后使用*/
+        --color-white: #f3f3f3;
+        --color-darkblue: #1b1b32;
+        --color-darkblue-alpha: rgba(27,27,50,0.8);
+        --color-green: #37af65;   
+    }
+
+    *,                                                      /*对于此页面的所有元素*/
+    *::before,
+    *::after {
+        box-sizing: border-box;   /*告诉浏览器，要设置的border和padding的值是包含在width中的，也就是说若设置width
+                                 为100px，则100px包括其border和padding。实际内容是100px-（border+padding）*/
+    }
+
+    body {                                                  /*设置整个页面的字体，字号，字体粗细，行间距等属性*/
+        font-family: sans-serif;
+        font-size: 1rem;               /*rem (root element) 与root中规定的字体大小相比较，默认1em==16px */
+        font-weight: 300;                                   /*字体粗细*/
+        line-height: 1.2;             /*行间距*/
+        color: var(--color-white);    /*这里就用到了前面规定的颜色*/
+        margin: 0;                    /*默认值为0，共四个参数，分别表示上右下左。三个参数时，为上、右左、下，两个参数为上下、右左*/
+    }
+
+    body::before {                             /*使用伪类来写网页的背景以及确定出背景图的位置*/
+        content: "";
+        position: fixed;                       /*生成固定定位的元素,   //////相对于浏览器窗口进行定位//////*/
+        top: 0;                                /*1.只对添加了position属性且值为非static的元素生效。
+                                                2.一般只设置两个属性来定位，如top和left为一对。
+                                                在无子元素宽高的前提下，将top和left设置为0，代表子元素位置处于最左上？如果需要将子元素完全
+                                                填充到父元素上，仍需height和width元素进行定位。将top、right、bottom、left均设置为0也可以起到同上 的效果*/
+        right: 0;
+        bottom: 0;                                        
+        left: 0;                              
+       
+        z-index: -1;                           /*z-index小的在大的元素之下*/
+        background-color: var(--color-darkblue);
+        background-image: linear-gradient(     /*以水平方向为0deg，顺时针旋转多少角度即为多少deg，
+                                                此时，角的另一边即与渐变颜色的界线平行。先设置渐变线的属性，再声明图片的地址*/ 
+            120deg,
+            rgba(241, 241, 248, 0.8),
+            rgba(231, 6, 6, 0.7)
+        ),
+          url(http://qqpublic.qpic.cn/qq_public/0/0-3054078808-CFFE974EE5DC4512EE1E23D0926554F4/0?fmt=jpg&size=56&h=540&w=900&ppv=1/0);
+        background-size: cover;                  /*保持图像纵横比并缩放至能覆盖背景定位区域的最小大小*/
+        background-repeat: no-repeat;            /*背景图，图片不重复*/
+        background-position: center;            /* 设置背景图像的起始位置*/
+    }
+
+    h1 {
+        font-weight: 350;
+        line-height: 1.2;
+    }
+
+    p {
+        font-size: 1.2rem;      /*rem [root em（element）] 相对于HTML根元素的相对大小，默认1rem==16px*/
+    }
+
+    h1,p {
+        margin-top: 0;
+        margin-bottom: 0.3rem;
+    }
+
+    /*使用flex 样式来构建label*/
+    label {                                      /*label属性            */
+        display: flex;
+        align-items: flex-start;    /*                  ?        */    
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    input,
+    button,
+    select,
+    textarea { 
+        margin: 0;
+        font-family: inherit;      /*继承*/
+        font-size: inherit;
+        line-height: inherit;     /* 内联属性，可继承*/    
+    }
+
+    button {
+        border: none;
+    }
+    
+    .container {
+        width: 100%;
+        margin: 3rem auto 0 auto;
+    }
+
+    @media (min-width: 500px) {
+        .container {
+            max-width: 480px;
+        }
+    }
+
+    .header {
+        padding: 0 0.6rem;
+        margin-bottom: 1.9rem;
+    }
+
+    .description {
+        font-style: italic;
+        font-size: 0.8rem;
+        font-weight: 200;
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+    }
+    
+    .text-center {
+        text-align: center;
+    }
+
+/* form */
+
+form {
+  background: var(--color-darkblue-alpha);
+  padding: 2.5rem 0.625rem;
+  border-radius: 0.25rem;
+}
+
+@media (min-width: 480px) {
+  form {
+    padding: 2.5rem;
+  }
+}
+
+.form-group {
+  margin: 0 auto 1.25rem auto;
+  padding: 0.25rem;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: 2.375rem;
+  padding: 0.375rem 0.75rem;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus {
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.input-radio,
+.input-checkbox {
+  display: inline-block;
+  margin-right: 0.625rem;
+  min-height: 1.25rem;
+  min-width: 1.25rem;
+}
+
+.input-textarea {
+  min-height: 120px;
+  width: 100%;
+  padding: 0.625rem;
+  resize: vertical;
+}
+
+.submit-button {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--color-green);
+  color: inherit;
+  border-radius: 2px;
+  cursor: pointer;                     /*设置鼠标指针指在上面时的样式*/
+}
+
+
+</style>
+
+<body>
+    <div class="container">
+    <header class="header">
+        <h1 id="title" class="text-center">某某app用户信息调查表</h1>
+        <p id="description" class="description text-center">               
+            为了更好地改进本产品，请您花费一些时间来填写以下调查表。我们对您表示诚挚的谢意。
+        </p>                                                           <!--p元素同时具有两个class-->
+    </header>
+
+<!--form  表单中包括 表单元素（input元素、复选框元素、单选按钮以及submit button）-->
+
+    <form id="survey-form" >                                     <!--格式为text-->
+        <div class="form-group">
+            <label id="name-label" for="name">姓名：</label>      <!--label的for属性对应的值应该与下面input元素中的id值相同-->
+            <input 
+            type="text"                                                    
+            name="name"
+            id="name"
+            class="form-control"
+            placeholder="请输入您的名字"
+            required
+            />
+        </div>
+        <div class="form-group">
+            <label id="email-label" for="email">
+                邮箱：
+            </label>
+            <input 
+            type="email"                                   /*输入格式为邮件形式*/
+            name="email"
+            id="email"
+            class="form-control"
+            placeholder="请输入您的邮箱"
+            required
+            />
+        </div>
+        <div class="form-group">
+            <label id="number-label" for="number">年龄：</label>
+            <input 
+            type="number"
+            name="age"
+            id="number"
+            max="99"
+            min="10"
+            class="form-control"
+            placeholder="请输入您的年龄"
+            />
+        </div>
+        <div class="form-group">
+            <p>您现在的职业是：</p>
+            <select id="dropdown" name="role" class="form-control">
+                <option disabled selected value>选择您的职业</option>
+                <option value="student">学生</option>
+                <option value="job">上班族</option>
+                <option value="learner">自由职业者</option>
+                <option value="no">不方便透露</option>
+                <option value="other">其他</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <p>你愿意为你周围的朋友推荐本app吗?</p>
+            <label>
+                <input 
+                name="user-recommend"
+                value="definitely"
+                type="radio"
+                class="input-ratio"
+                checked
+                />十分乐意</label>
+            <label>
+                <input
+                name="user-recommend"
+                value="maybe"
+                type="radio"                            /*注意拼写*/
+                class="input-ratio"
+                />可能</label>
+            <label>
+                <input
+                name="user-recommend"
+                value="notsure"
+                type="radio"
+                class="input-ratio"
+                />不确定</label>
+         </div>
+         <div class="form-group">
+            <p>你想看到本app的哪个版块改进呢？</p>
+            <label>
+                <input 
+                name="improved"
+                value="quanzi"
+                type="checkbox"
+                class="input-checkbox"
+                />圈子
+            </label>
+            <label>
+                <input
+                name="improved"
+                value="xiaoxi"
+                type="checkbox"
+                class="input-checkbox"
+                />消息
+            </label>
+            <label>
+                <input
+                name="improved"
+                value="I"
+                type="checkbox"
+                class="input-checkbox"
+                />我
+            </label>
+            <label>
+                <input
+                name="improved"
+                value="faxian"
+                type="checkbox"
+                class="input-checkbox"
+                />发现
+            </label>
+         </div>
+         <div class="form-group">
+             <p>如果您有更好的建议，请不吝指出。一经采纳我们会有丰厚的奖励。</p>
+             <textarea
+             id="comments"
+             class="input-textarea"
+             name="comment"
+             placeholder="请把您的建议写在这里："
+             ></textarea>
+         </div>
+         <div class="form-group">
+             <button 
+             type="submit"
+             id="submit"
+             class="submit-button"                       /*拼写*/
+             >提交</button>
+         </div>
+    </form>
+   
+</body>

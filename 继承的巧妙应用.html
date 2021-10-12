@@ -1,0 +1,35 @@
+<style>
+/*inherit的妙用*/
+    div {
+        margin: 50px auto;
+        width: 200px;
+        height: 200px;
+        background-image: 
+        url("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimage.biaobaiju.com%2Fuploads%2F20190624%2F14%2F1561357911-HanrIOGVlJ.jpeg&refer=http%3A%2F%2Fimage.biaobaiju.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1636554513&t=8d4482542dfe28b89861d5cddf9571a6");
+        position: relative;
+    }    
+
+    div::before {
+        content: "";
+        background-image: inherit;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        bottom: -100%;
+        transform: rotateX(180deg);
+    }
+
+    div::after {
+        content: "";
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        bottom: -200px;
+        background: linear-gradient(0deg, rgba(255,255,255,1)0%, rgba(255, 255, 255, 0)100%);
+        z-index: 2;
+
+    }
+</style>
+
+<div></div>
